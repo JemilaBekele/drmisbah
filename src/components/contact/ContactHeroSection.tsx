@@ -4,7 +4,7 @@ const ContactHeroSection = () => {
     return(
           <>
      <Head>
-        <link rel="preload" href="/bggg.jpg" as="image" />
+        <link rel="preload" href="/c.jpg" as="image" />
       </Head>
       <section
       className="h-[90vh] relative table w-full py-36 lg:py-44 bg-no-repeat bg-center bg-cover"
