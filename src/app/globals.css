@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  :root {
+    --background: 0 0% 100%; /* White */
+    --foreground: 210 16% 20%; /* Darker teal for text */
+    --card: 0 0% 100%; /* White for cards */
+    --card-foreground: 210 16% 20%; /* Darker teal for card text */
+    --popover: 0 0% 98%; /* Off-white for popovers */
+    --popover-foreground: 210 16% 20%; /* Darker teal for popover text */
+    --primary: 191.5 91.1% 32.4%; /* #0C7B92 */
+    --primary-foreground: 210 50% 95%; /* Lightened teal for contrast */
+    --secondary: 191.5 40% 85%; /* Lighter teal */
+    --secondary-foreground: 210 16% 20%; /* Darker teal for contrast */
+    --muted: 191.5 25% 94%; /* Very light teal */
+    --muted-foreground: 210 16% 40%; /* Muted teal for contrast */
+    --accent: 191.5 50% 40%; /* Medium teal accent */
+    --accent-foreground: 210 50% 95%; /* Lightened teal for contrast */
+    --destructive: 0 84.2% 60.2%; /* Red for destructive actions */
+    --destructive-foreground: 0 0% 100%; /* White for contrast */
+    --border: 191.5 30% 90%; /* Soft teal for borders */
+    --input: 191.5 30% 90%; /* Soft teal for inputs */
+    --ring: 191.5 91.1% 32.4%; /* #0C7B92 for focus rings */
+    --radius: 0.5rem; /* Keep the border radius consistent */
+    --chart-1: 191.5 91.1% 32.4%; /* Harmonize charts with the primary */
+    --chart-2: 173 60% 39%; /* Complementary teal-green */
+    --chart-3: 197 50% 40%; /* Slightly darker teal */
+    --chart-4: 210 40% 66%; /* Mid-range teal */
+    --chart-5: 230 87% 67%; /* Bright cyan-teal */
+  }
+
+  .dark {
+    --background: 210 16% 10%; /* Dark teal background */
+    --foreground: 210 50% 95%; /* Lightened teal for text */
+    --card: 210 16% 15%; /* Dark teal for cards */
+    --card-foreground: 210 50% 95%; /* Lightened teal for card text */
+    --popover: 210 16% 20%; /* Dark teal for popovers */
+    --popover-foreground: 210 50% 95%; /* Lightened teal for popover text */
+    --primary: 191.5 91.1% 32.4%; /* #0C7B92 */
+    --primary-foreground: 210 50% 95%; /* Lightened teal for contrast */
+    --secondary: 210 16% 25%; /* Darker muted teal */
+    --secondary-foreground: 210 50% 95%; /* Lightened teal for contrast */
+    --muted: 210 16% 20%; /* Dark muted teal */
+    --muted-foreground: 210 50% 80%; /* Slightly muted light teal */
+    --accent: 191.5 50% 40%; /* Medium teal accent */
+    --accent-foreground: 210 50% 95%; /* Lightened teal for contrast */
+    --destructive: 0 62.8% 30.6%; /* Darker red for destructive actions */
+    --destructive-foreground: 210 50% 95%; /* Lightened teal for contrast */
+    --border: 210 16% 25%; /* Darker teal for borders */
+    --input: 210 16% 25%; /* Darker teal for inputs */
+    --ring: 191.5 91.1% 32.4%; /* #0C7B92 for focus rings */
+    --chart-1: 191.5 91.1% 32.4%; /* Harmonize charts with the primary */
+    --chart-2: 173 60% 39%; /* Complementary teal-green */
+    --chart-3: 197 50% 40%; /* Slightly darker teal */
+    --chart-4: 210 40% 66%; /* Mid-range teal */
+    --chart-5: 230 87% 67%; /* Bright cyan-teal */
+  }
+}
+
+
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-in-left {
+  from { transform: translateX(-20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slide-in-right {
+  from { transform: translateX(20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fade-in-up {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.animate-fade-in { animation: fade-in 1s ease-in-out; }
+.animate-slide-in-left { animation: slide-in-left 0.8s ease-in-out; }
+.animate-slide-in-right { animation: slide-in-right 0.8s ease-in-out; }
+.animate-fade-in-up { animation: fade-in-up 0.6s ease-in-out; }
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
