@@ -2,7 +2,7 @@
 const nextConfig = {
   output: 'standalone',
   images: {
-    domains: ['api.skyhub-technologies.com',"localhost"],
+  
     remotePatterns: [
       {
         protocol: "https",
