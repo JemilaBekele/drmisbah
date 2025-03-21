@@ -15,7 +15,7 @@ const ServiceHero = () => {
   return (
       <>
      <Head>
-        <link rel="preload" href="/bggg.jpg" as="image" />
+        <link rel="preload" href="/blue.jpg" as="image" />
       </Head>
     <section
       className="relative h-[90vh] table w-full py-36 lg:py-48 bg-no-repeat bg-center bg-cover"
