@@ -13,6 +13,10 @@ const ServiceHero = () => {
   if (!isClient) return null;
 
   return (
+      <>
+     <Head>
+        <link rel="preload" href="/bggg.jpg" as="image" />
+      </Head>
     <section
       className="relative h-[90vh] table w-full py-36 lg:py-48 bg-no-repeat bg-center bg-cover"
       style={{ backgroundImage: `url(blue.jpg)` }}
@@ -43,7 +47,7 @@ const ServiceHero = () => {
           <li className="inline-block uppercase text-white">Services</li>
         </ul>
       </div>
-    </section>
+    </section></>
   );
 };
 
