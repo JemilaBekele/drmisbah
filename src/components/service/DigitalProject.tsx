@@ -18,10 +18,11 @@ const DigitalProject = () => {
             Ready to Partner with Us?
           </h3>
           <p className="text-white max-w-2xl mx-auto mb-8 text-lg leading-relaxed">
-            Whether you're looking for high-quality pharmaceuticals, premium
-            agricultural products, or innovative solutions, we're here to help.
-            Let's collaborate to achieve mutual success.
-          </p>
+  Whether you&apos;re looking for high-quality pharmaceuticals, premium
+  agricultural products, or innovative solutions, we&apos;re here to help.
+  Let&apos;s collaborate to achieve mutual success.
+</p>
+
           <a
             href="/contact-us"
             className="inline-block py-3 px-6 font-semibold text-base text-primary bg-white rounded-lg shadow-lg transform transition-transform hover:scale-105"

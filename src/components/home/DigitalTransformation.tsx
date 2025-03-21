@@ -128,8 +128,10 @@ const CoffeeExportSection = () => {
                 Connecting Ethiopia to Global Markets
               </h3>
               <p className="text-gray-700 text-lg md:text-xl leading-relaxed mb-6 max-w-2xl">
-                We export premium "Coffee Arabica" to the Middle East and Asia, ensuring the highest quality while supporting local farmers.
-              </p>
+  We export premium &quot;Coffee Arabica&quot; to the Middle East and Asia, ensuring the highest quality while supporting local farmers.
+</p>
+
+
               <Button className="text-white" variant="default" asChild>
                 <Link href="/contact-us">
                   <i className="uil uil-envelope mr-2" /> Get in Touch
