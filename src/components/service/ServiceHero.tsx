@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-
+import Head from "next/head";
 const ServiceHero = () => {
   const [isClient, setIsClient] = useState(false);
 
