@@ -12,7 +12,7 @@ export default function AboutPage() {
   return (
     <>
       <Head>
-        <title>About Us | Skyhub Technology solutions</title>
+        <title>About Us | Hope Business Group.</title>
       </Head>
       <AboutHeroSection />
       <WaveDecoration />
