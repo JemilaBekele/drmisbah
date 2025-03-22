@@ -5,24 +5,23 @@ import Link from "next/link";
 const AboutHeroSection = () => {
   return (
     <section
-     className="relative h-[90vh] table w-full py-36 lg:py-48 bg-no-repeat bg-center bg-cover"
+      className="relative h-[90vh] flex items-center justify-center w-full py-36 lg:py-48 bg-no-repeat bg-center bg-cover"
       style={{ backgroundImage: `url('/bbb.jpg')` }} // Replace with your chosen image
     >
       {/* Subtle overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-black opacity-70"></div>
-      <div className="container relative z-10 px-6 lg:px-0">
-       
-        <h1 className="text-2xl md:text-3xl text-white font-light">
-        Where Care Meets Innovation, and Growth Knows No Limits.
+      <div className="container max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+        <h1 className="text-xl sm:text-2xl md:text-3xl text-white font-light">
+          Where Care Meets Innovation, and Growth Knows No Limits.
         </h1>
-        <h2 className="text-[2rem] md:text-[3rem] font-bold capitalize mb-4 text-white">
-         Hope Business Group
+        <h2 className="text-[1.5rem] sm:text-[2rem] md:text-[3rem] font-bold capitalize mb-4 text-white">
+          Hope Business Group
         </h2>
-        <p className="text-gray-200 leading-relaxed mb-6 text-lg font-medium max-w-2xl">
-        Hope Business Group drives innovation, sustainability, and excellence, enhancing lives through 
-        top-tier pharmaceuticals, eco-friendly transport, and quality construction materials. Globally,
-         we connect Ethiopian products Coffee Arabica, fresh produce, 
-        and oil seeds to international markets. At HOPE, we create lasting value for communities, partners, and the future.
+        <p className="text-gray-200 leading-relaxed mb-6 text-base sm:text-lg font-medium max-w-2xl">
+          Hope Business Group drives innovation, sustainability, and excellence, enhancing lives through 
+          top-tier pharmaceuticals, eco-friendly transport, and quality construction materials. Globally,
+          we connect Ethiopian products Coffee Arabica, fresh produce, 
+          and oil seeds to international markets. At HOPE, we create lasting value for communities, partners, and the future.
         </p>
 
         <div className="flex gap-4 mt-8">
