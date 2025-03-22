@@ -61,9 +61,9 @@ const LegacyIntroductionSection = () => {
                   {service.icon}
                 </div>
                 <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
-                <p className="mb-4 text-gray-700 line-clamp-2">
-                  {service.description}
-                </p>
+                <p className="mb-4 text-gray-700">
+  {service.description}
+</p>
               </div>
             ))}
           </div>
