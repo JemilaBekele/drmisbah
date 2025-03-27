@@ -19,8 +19,8 @@ const AboutHeroSection = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-[#0A2463]/90 via-[#0A2463]/70 to-[#0A2463]/90"></div>
         
         <div className="container relative z-10 px-6 lg:px-8">
-          <div className="flex justify-end">
-            <div className="flex flex-col bg-white/90 p-6 md:p-10 w-full max-w-2xl rounded-lg shadow-2xl backdrop-blur-sm ml-auto">
+          <div className="flex justify-start">
+            <div className="flex flex-col bg-white/90 p-6 md:p-10 w-full max-w-2xl rounded-lg shadow-2xl backdrop-blur-sm mr-auto">
               <p className="text-lg md:text-xl font-semibold text-[#028A0F] mb-2">About Us</p>
               <h2 className="text-3xl md:text-5xl font-bold capitalize mb-4 text-gray-800">
                 Innovation
