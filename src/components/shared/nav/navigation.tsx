@@ -17,9 +17,9 @@ const Navbar = () => {
 
   return (
     <nav className="fixed w-full border-b-2 z-50 top-0 left-0 transition-all duration-300 bg-white">
-    <div className="container mx-auto px-4 flex justify-between items-center py-3 sm:py-4">
+    <div className="container mx-auto px-2 flex justify-between items-center py-3 sm:py-2">
       <Link href="/">
-        <Image src="/logo.png" alt="hope Logo" width={100} height={30} priority className="w-24 sm:w-[120px]" />
+        <Image src="/logo.png" alt="hope Logo" width={120} height={70} priority className="w-34 sm:w-[120px]" />
       </Link>
   
       {/* Desktop Menu */}
