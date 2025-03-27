@@ -58,13 +58,21 @@ export default function Footer() {
         <div>
           <h5 className="text-lg font-semibold mb-4">Follow Us</h5>
           <div className="space-y-3">
-            <a href="tel:+251-911422116" className="text-gray-300 mb-2 flex items-center">
-              <FaPhone className="inline-block mr-2 text-white" /> +251-911422116
-            </a>
-            <a href="https://t.me/@DurettiHaji" target="_blank"
-  rel="noopener noreferrer"  className="text-gray-300 mb-2 flex items-center">
-              <FaTelegram className="inline-block mr-2 text-white" /> Telegram
-            </a>
+          <div className="flex gap-4">
+  <a href="tel:+251-911422116" className="text-gray-300 flex items-center">
+    <FaPhone className="inline-block mr-2 text-white" /> +251-911422116
+  </a>
+  <a href="tel:+251-911840527" className="text-gray-300 flex items-center">
+    <FaPhone className="inline-block mr-2 text-white" /> +251-911840527
+  </a>
+</div>
+
+  <a href="mailto:duha@hopebusiness.org" className="text-gray-300 flex items-center">
+    <FaEnvelope className="inline-block mr-2 text-white" /> duha@hopebusiness.org
+  </a>
+ 
+
+
             <a
   href="https://wa.me/251911422116"
   target="_blank"

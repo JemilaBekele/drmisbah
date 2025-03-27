@@ -6,12 +6,17 @@ const AboutHeroSection = () => {
   return (
     <section
       className="relative h-[90vh] flex items-center justify-center w-full py-36 lg:py-48 bg-no-repeat bg-center bg-cover"
-      style={{ backgroundImage: `url('/bbb.jpg')` }} // Replace with your chosen image
+      style={{ 
+        backgroundImage: `url('/bbb.jpg')`,
+        // Fallback gradient background if image doesn't load
+        backgroundColor: '#0A2463' 
+      }}
     >
-      {/* Subtle overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-black opacity-70"></div>
+      {/* Subtle overlay - dark blue with opacity */}
+      <div className="absolute inset-0 bg-[#0A2463]/80"></div>
+      
       <div className="container max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-        <h1 className="text-xl sm:text-2xl md:text-3xl text-white font-light">
+        <h1 className="text-xl sm:text-2xl md:text-3xl text-[#FFD700] font-light">
           Where Care Meets Innovation, and Growth Knows No Limits.
         </h1>
         <h2 className="text-[1.5rem] sm:text-[2rem] md:text-[3rem] font-bold capitalize mb-4 text-white">
@@ -25,10 +30,16 @@ const AboutHeroSection = () => {
         </p>
 
         <div className="flex gap-4 mt-8">
-          <Link href="/services" className="px-8 py-3 border border-white text-white rounded-lg hover:bg-white hover:text-primary transition duration-300">
+          <Link 
+            href="/services" 
+            className="px-8 py-3 border border-[#FFD700] text-[#FFD700] rounded-lg hover:bg-[#FFD700] hover:text-[#0A2463] transition duration-300"
+          >
             Learn more &rarr;
           </Link>
-          <Link href="/contact-us" className="px-8 py-3 bg-white text-primary rounded-lg hover:bg-gray-100 transition duration-300">
+          <Link 
+            href="/contact-us" 
+            className="px-8 py-3 bg-[#FFD700] text-[#0A2463] rounded-lg hover:bg-[#F4C430] transition duration-300"
+          >
             Get in Touch
           </Link>
         </div>
@@ -36,7 +47,7 @@ const AboutHeroSection = () => {
 
       <div className="absolute bottom-5 left-0 right-0 text-center z-10">
         <ul className="inline-flex items-center text-white text-sm font-semibold tracking-wide">
-          <li className="uppercase text-white/70 hover:text-white transition duration-300">
+          <li className="uppercase text-white/70 hover:text-[#FFD700] transition duration-300">
             <Link href="/">Hope Business Group</Link>
           </li>
           <li className="mx-2 text-white/50">

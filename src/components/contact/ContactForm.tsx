@@ -7,47 +7,55 @@ import "react-toastify/dist/ReactToastify.css";
 import { Button } from "../ui/button";
 
 const ContactForm: React.FC = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [company, setCompany] = useState("");
-  const [phone, setPhone] = useState("");
-  const [subject, setSubject] = useState("");
-  const [message, setMessage] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    company: "",
+    phone: "",
+    subject: "",
+    message: ""
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch("api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          name,
-          email,
-          company,
-          phone,
-          subject,
-          message,
-        }),
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
-        const data = await response.json();
         toast.success("Your message has been sent successfully!");
-        setName("");
-        setEmail("");
-        setCompany("");
-        setPhone("");
-        setSubject("");
-        setMessage("");
+        setFormData({
+          name: "",
+          email: "",
+          company: "",
+          phone: "",
+          subject: "",
+          message: ""
+        });
       } else {
         throw new Error("Failed to send message");
       }
     } catch (error) {
       console.error("Error:", error);
       toast.error("Failed to send your message. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -67,67 +75,67 @@ const ContactForm: React.FC = () => {
           <div className="lg:col-span-5 md:col-span-6 bg-gray-50 p-8 rounded-lg shadow-xl">
             <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
               Get in Touch with Us
-              
             </h2>
             <form onSubmit={handleSubmit} className="space-y-6">
-              
-                <div>
-                  <input
-                    type="text"
-                    placeholder="Your Name *"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-black"
-                    required
-                  />
-                </div>
-                <div>
-                  <input
-                    type="email"
-                    placeholder="Email *"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-black"
-                    required
-                  />
-                </div>
-                <div>
-                  <input
-                    type="text"
-                    placeholder="Company"
-                    value={company}
-                    onChange={(e) => setCompany(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-black"
-                  />
-                </div>
-              
-              
-                
-                <div>
-                  <input
-                    type="tel"
-                    placeholder="Phone"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-black"
-                  />
-                </div>
-              
               <div>
                 <input
                   type="text"
+                  name="name"
+                  placeholder="Your Name *"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-black"
+                  required
+                />
+              </div>
+              <div>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email *"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-black"
+                  required
+                />
+              </div>
+              <div>
+                <input
+                  type="text"
+                  name="company"
+                  placeholder="Company"
+                  value={formData.company}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-black"
+                />
+              </div>
+              <div>
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="Phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-black"
+                />
+              </div>
+              <div>
+                <input
+                  type="text"
+                  name="subject"
                   placeholder="Subject *"
-                  value={subject}
-                  onChange={(e) => setSubject(e.target.value)}
+                  value={formData.subject}
+                  onChange={handleChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-black"
                   required
                 />
               </div>
               <div>
                 <textarea
+                  name="message"
                   placeholder="Message *"
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
+                  value={formData.message}
+                  onChange={handleChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-black"
                   rows={5}
                   required
@@ -136,9 +144,10 @@ const ContactForm: React.FC = () => {
               <Button
                 type="submit"
                 variant="default"
-                className="w-42  !bg-primary font-semibold py-3 rounded-lg  transition duration-300"
+                className="w-42 !bg-primary font-semibold py-3 rounded-lg transition duration-300"
+                disabled={isSubmitting}
               >
-                Send Message
+                {isSubmitting ? "Sending..." : "Send Message"}
               </Button>
             </form>
           </div>

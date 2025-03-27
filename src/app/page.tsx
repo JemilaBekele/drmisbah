@@ -8,7 +8,7 @@ import WaveDecoration from "@/components/shared/WaveDecoration/WaveDecoration";
 
 
 export const metadata: Metadata = {
-  title: "Home - Hope Pharmaceuticals and Medical Equipment PLC ",
+  title: "Home - HOPE Business Group PLC",
 };
 export default function Home() {
   return (

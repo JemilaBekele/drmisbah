@@ -1,42 +1,34 @@
 "use client";
+import { FC } from "react";
 import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
 
-const AboutHeroSection = () => {
+const NotFound: FC = () => {
   return (
-       <section
-      className="relative h-[90vh] table w-full py-36 lg:py-48 bg-no-repeat bg-center bg-cover"
-      style={{ backgroundImage: `url(bggg.jpg)` }}
-    >
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-black opacity-70"></div>
-      <div className="container relative z-10 px-6 lg:px-0">  
-      <div className="flex flex-col bg-white/60 p-10 max-w-2xl rounded-lg shadow-2xl backdrop-blur-md">
-          <p className="text-xl font-semibold text-primary mb-2">About Us</p>
-          <h2 className="text-5xl font-bold capitalize mb-4">
-            Empowering Lives Through
-            <span className="text-primary font-bold"> Innovation </span> and
-            <span className="text-primary font-bold"> Sustainability </span>
-          </h2>
-          <p className="text-gray-700 leading-relaxed mb-6 font-semibold">
-            HOPE Pharmaceuticals and Medical Equipment PLC is a dynamic company committed to improving lives through pharmaceuticals, eco-friendly transportation, and global exports of Ethiopian products like Coffee Arabica, fresh produce, and construction materials.
+    <section className="relative w-full h-screen bg-gray-50 flex px-0 items-center justify-center  text-white">
+      <div className="container relative px-0 z-10 ">
+        <div className="flex flex-col p-4 md:p-10 max-w-2xl items-center text-center bg-white/90 text-primary backdrop-blur-md rounded-lg  mx-auto">
+          <h1 className="text-6xl font-extrabold tracking-tight sm:text-8xl">
+            404
+          </h1>
+          <p className="mt-6 text-2xl font-semibold">
+            Page not found.
           </p>
+          <p className="mt-4 text-lg text-gray-700">
+            The page you are looking for does not exist. Let&apos;s get you back to where you belong.
+          </p>
+          <div className="flex gap-4 mt-6">
+            <Link href="/" className={buttonVariants({ variant: "default" })}>
+              Back to Home &rarr;
+            </Link>
+            <Link href="/contact-us" className={buttonVariants()}>
+              Contact Support
+            </Link>
+          </div>
         </div>
-      </div>
-
-      <div className="absolute bottom-5 left-0 right-0 text-center z-10">
-        <ul className="inline-block text-white text-sm font-semibold tracking-wide">
-          <li className="inline-block uppercase text-white/70 hover:text-white transition duration-300">
-            <Link href="/about-us">Hope Business Group</Link>
-          </li>
-          <li className="inline-block mx-2 text-white/50">
-            <i className="uil uil-angle-right-b"></i>
-          </li>
-          <li className="inline-block uppercase text-white">
-            About Us
-          </li>
-        </ul>
       </div>
     </section>
   );
 };
 
-export default AboutHeroSection;
+export default NotFound;

@@ -9,7 +9,7 @@ const DigitalTransformation = () => {
       <CuttingEdgeTechnology />
       <CoffeeExportSection />
       <FruitExportSection/>
-      
+      <ConstructionSection/>
 
 
     </>
@@ -31,7 +31,7 @@ const CuttingEdgeTechnology = () => {
                 Pioneering Eco-Friendly Solutions
               </h3>
               <p className="text-gray-700 text-lg md:text-xl leading-relaxed mb-6 max-w-2xl">
-  Hope Business Group pioneers sustainable transport with <strong>Miichu</strong>, supplying electric bikes and scooters for sale and shared use via the Miichu app. As the sole agent for <strong>Corbus Steel Ltd.</strong>, we also provide quality construction materials, fostering innovation, sustainability, and community growth.
+  Hope Business Group pioneers sustainable transport with <strong>Miichu</strong>, offering hybrid electric cycles and stand-up adult scooters for both purchase and shared use through the Miichu app.
 </p>
 
               <Button className="text-white" variant="default" asChild>
@@ -154,7 +154,7 @@ const FruitExportSection = () => {
             <div className="rounded-lg overflow-hidden shadow-l">
               <div className="relative w-full h-64 md:h-96">
                 <Image
-                  src="/oill.jpg"
+                  src="/oillll.jpg"
                   alt="Fruit Export"
                   className="object-cover object-center"
                   layout="fill"
@@ -186,7 +186,50 @@ const FruitExportSection = () => {
   );
 };
 
+const ConstructionSection = () => {
+  return (
 
+
+
+    <section className="bg-gray-200">
+      <div className="container mx-auto py-12 md:py-20 px-4">
+        <div className="grid md:grid-cols-12 grid-cols-1 items-center gap-8 md:gap-16">
+          <div className="md:col-span-6 md:order-2">
+            <div className="rounded-lg overflow-hidden shadow-l">
+              <div className="relative w-full h-64 md:h-96">
+                <Image
+                  src="/constru.jpg"
+                  alt="Oil and Pulses Export"
+                  className="object-cover object-center"
+                  layout="fill"
+                />
+              </div>
+            </div>
+          </div>
+   <div className="md:col-span-6">
+   <h6 className="text-primary text-xs md:text-sm font-semibold uppercase tracking-wide mb-2">
+  Building Ethiopia&apos;s Future
+</h6>
+
+            <h3 className="text-2xl md:text-4xl font-bold leading-tight mb-4">
+              Premium Construction Materials Supply
+            </h3>
+            <p className="text-gray-700 text-lg md:text-xl leading-relaxed mb-6 max-w-2xl">
+  Hope Business Group has expanded into the construction sector, supplying the market with top-quality building materials.
+</p>
+
+            <Button className="text-white" variant="default" asChild>
+              <Link href="/contact-us">
+                <i className="uil uil-envelope mr-2" /> Get in Touch
+              </Link>
+            </Button>
+          </div>
+      
+        </div>
+      </div>
+    </section>
+  );
+};
 
 export { CoffeeExportSection, FruitExportSection };
 
