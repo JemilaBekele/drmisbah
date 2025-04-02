@@ -54,9 +54,10 @@ const LegacyIntroductionSection = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, index) => (
               <div
-                key={index}
-                className="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition-shadow duration-300"
-              >
+              key={index}
+              className="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg hover:scale-105 transition-transform duration-300"
+            >
+            
                 <div className="flex justify-center items-center">
                   {service.icon}
                 </div>

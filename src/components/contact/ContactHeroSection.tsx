@@ -12,17 +12,13 @@ const ContactHeroSection = () => {
     >
       <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-black opacity-70"></div>
       <div className="container px-0 relative z-10">
-      <div className="flex flex-col bg-white/60 p-10 max-w-2xl rounded-lg shadow-2xl backdrop-blur-md">
+      <div className="flex flex-col bg-white/60 p-6 max-w-2xl rounded-lg shadow-2xl backdrop-blur-md">
           <p className="text-xl font-semibold text-primary mb-2">Contact Us</p>
           <h2 className="text-5xl font-bold capitalize mb-4">
             Get in Touch with
             <span className="text-primary font-bold"> Us</span>
           </h2>
-          <p className="text-gray-700 leading-relaxed mb-6">
-            We&apos;re here to help you with any questions, inquiries, or support you need. 
-            Reach out to us and experience our commitment to providing top-notch 
-            customer service and innovative solutions tailored to your needs.
-          </p>
+       
         </div>
       </div>
 

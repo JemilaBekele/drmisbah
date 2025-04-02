@@ -49,9 +49,9 @@ const KeyAttributes = () => {
         {/* Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {attributes.map((attribute, index) => (
-            <div
+              <div
               key={index}
-              className="relative p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out cursor-pointer"
+              className="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg hover:scale-105 transition-transform duration-300"
             >
               {/* Icon Section */}
               <div className="flex justify-center items-center mb-4">

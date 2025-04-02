@@ -76,80 +76,95 @@ const ContactForm: React.FC = () => {
             <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
               Get in Touch with Us
             </h2>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Your Name *"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-black"
-                  required
-                />
-              </div>
-              <div>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email *"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-black"
-                  required
-                />
-              </div>
-              <div>
-                <input
-                  type="text"
-                  name="company"
-                  placeholder="Company"
-                  value={formData.company}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-black"
-                />
-              </div>
-              <div>
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder="Phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-black"
-                />
-              </div>
-              <div>
-                <input
-                  type="text"
-                  name="subject"
-                  placeholder="Subject *"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-black"
-                  required
-                />
-              </div>
-              <div>
-                <textarea
-                  name="message"
-                  placeholder="Message *"
-                  value={formData.message}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-black"
-                  rows={5}
-                  required
-                ></textarea>
-              </div>
-              <Button
-                type="submit"
-                variant="default"
-                className="w-42 !bg-primary font-semibold py-3 rounded-lg transition duration-300"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? "Sending..." : "Send Message"}
-              </Button>
-            </form>
+            <form onSubmit={handleSubmit} className="space-y-6 group">
+  <div className="relative">
+    <input
+      type="text"
+      name="name"
+      placeholder="Your Name *"
+      value={formData.name}
+      onChange={handleChange}
+      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-black
+                hover:border-gray-400 transition-all duration-300 hover:shadow-sm"
+      required
+    />
+  </div>
+  
+  <div className="relative">
+    <input
+      type="email"
+      name="email"
+      placeholder="Email *"
+      value={formData.email}
+      onChange={handleChange}
+      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-black
+                hover:border-gray-400 transition-all duration-300 hover:shadow-sm"
+      required
+    />
+  </div>
+  
+  <div className="relative">
+    <input
+      type="text"
+      name="company"
+      placeholder="Company"
+      value={formData.company}
+      onChange={handleChange}
+      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-black
+                hover:border-gray-400 transition-all duration-300 hover:shadow-sm"
+    />
+  </div>
+  
+  <div className="relative">
+    <input
+      type="tel"
+      name="phone"
+      placeholder="Phone"
+      value={formData.phone}
+      onChange={handleChange}
+      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-black
+                hover:border-gray-400 transition-all duration-300 hover:shadow-sm"
+    />
+  </div>
+  
+  <div className="relative">
+    <input
+      type="text"
+      name="subject"
+      placeholder="Subject *"
+      value={formData.subject}
+      onChange={handleChange}
+      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-black
+                hover:border-gray-400 transition-all duration-300 hover:shadow-sm"
+      required
+    />
+  </div>
+  
+  <div className="relative">
+    <textarea
+      name="message"
+      placeholder="Message *"
+      value={formData.message}
+      onChange={handleChange}
+      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-black
+                hover:border-gray-400 transition-all duration-300 hover:shadow-sm resize-none"
+      rows={5}
+      required
+    ></textarea>
+  </div>
+  
+  <Button
+    type="submit"
+    variant="secondary"
+    className="w-42 bg-primary font-semibold py-3 rounded-lg transition-all duration-300
+              hover:bg-primary/90 hover:shadow-md hover:-translate-y-0.5
+              focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2
+              disabled:opacity-70 disabled:cursor-not-allowed"
+    disabled={isSubmitting}
+  >
+    {isSubmitting ? "Sending..." : "Send Message"}
+  </Button>
+</form>
           </div>
         </div>
       </div>
