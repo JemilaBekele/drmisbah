@@ -18,7 +18,6 @@ export default function AboutPage() {
       <AboutHope/>
       
       <KeyAttributes />
-     
       <AboutUs/>
       <TeamSpotlight/>
     </>

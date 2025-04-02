@@ -1,6 +1,11 @@
+"use client"; 
+
 import Image from "next/image";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+
+
 
 const DigitalTransformation = () => {
   return (
@@ -8,8 +13,11 @@ const DigitalTransformation = () => {
       <LegacyIntroductionSection />
       <CuttingEdgeTechnology />
       <CoffeeExportSection />
-      <FruitExportSection/>
-      <ConstructionSection/>
+      <FruitExportSection />
+
+      <OilSeedsPulsesSection/>
+
+      <ConstructionSection />
 
 
     </>
@@ -18,6 +26,7 @@ const DigitalTransformation = () => {
 export default DigitalTransformation;
 
 const CuttingEdgeTechnology = () => {
+  
   return (
     <section className="">
       <div className="container mx-auto py-12 md:py-28 px-4">
@@ -31,8 +40,8 @@ const CuttingEdgeTechnology = () => {
                 Pioneering Eco-Friendly Solutions
               </h3>
               <p className="text-gray-700 text-lg md:text-xl leading-relaxed mb-6 max-w-2xl">
-  Hope Business Group pioneers sustainable transport with <strong>Miichu</strong>, offering hybrid electric cycles and stand-up adult scooters for both purchase and shared use through the Miichu app.
-</p>
+                Hope Business Group pioneers sustainable transport <strong>Miichu</strong>, offering hybrid electric cycles and stand-up adult scooters for both purchase and shared use through the Miichu app.
+              </p>
 
               <Button className="text-white" variant="default" asChild>
                 <Link href="/contact-us">
@@ -128,8 +137,8 @@ const CoffeeExportSection = () => {
                 Connecting Ethiopia to Global Markets
               </h3>
               <p className="text-gray-700 text-lg md:text-xl leading-relaxed mb-6 max-w-2xl">
-  We export premium &quot;Coffee Arabica&quot; to the Middle East and Asia, ensuring the highest quality while supporting local farmers.
-</p>
+                We export premium &quot;Coffee Arabica&quot; to the Middle East and Asia, ensuring the highest quality while supporting local farmers.
+              </p>
 
 
               <Button className="text-white" variant="default" asChild>
@@ -146,6 +155,35 @@ const CoffeeExportSection = () => {
 };
 
 const FruitExportSection = () => {
+  const images = [
+    { src: "/fruits.jpg", alt: "Fresh Fruits & Vegetables" },
+    { src: "/fruit1.jpg", alt: "Fruit Image 1" },
+    { src: "/fruit2.jpg", alt: "Fruit Image 2" },
+    { src: "/fruit3.jpg", alt: "Fruit Image 3" },
+    { src: "/fruit4.jpg", alt: "Fruit Image 4" },
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Automatically change image every 3 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === images.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 2000); // Change image every 3 seconds
+
+    return () => clearInterval(interval); // Clean up the interval on unmount
+  }, [images.length]);
+
+  const goToPrevious = () => {
+    setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
+  };
+
+  const goToNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+  };
+
   return (
     <section className="bg-white">
       <div className="container mx-auto py-12 md:py-20 px-4">
@@ -154,26 +192,39 @@ const FruitExportSection = () => {
             <div className="rounded-lg overflow-hidden shadow-l">
               <div className="relative w-full h-64 md:h-96">
                 <Image
-                  src="/oillll.jpg"
-                  alt="Fruit Export"
+                  src={images[currentIndex].src}
+                  alt={images[currentIndex].alt}
                   className="object-cover object-center"
                   layout="fill"
                 />
+              </div>
+              <div className="flex justify-between mt-4">
+                <button
+                  onClick={goToPrevious}
+                  className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-700"
+                >
+                  Prev
+                </button>
+                <button
+                  onClick={goToNext}
+                  className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-700"
+                >
+                  Next
+                </button>
               </div>
             </div>
           </div>
 
           <div className="md:col-span-6">
-          <h6 className="text-primary text-xs md:text-sm font-semibold uppercase tracking-wide mb-2">
-  Exporting Premium Agricultural Products Worldwide
-</h6>
-<h3 className="text-2xl md:text-4xl font-bold leading-tight mb-4">
-  Supplying Global Markets with Quality & Freshness
-</h3>
-<p className="text-gray-700 text-lg md:text-xl leading-relaxed mb-6 max-w-2xl">
-  We export premium oil seeds, pulses, fresh fruits, and vegetables to India, China, and the Middle East, ensuring top-quality standards while supporting Ethiopian agriculture.
-</p>
-
+            <h6 className="text-primary text-xs md:text-sm font-semibold uppercase tracking-wide mb-2">
+              Exporting Fresh Fruits & Vegetables Worldwide
+            </h6>
+            <h3 className="text-2xl md:text-4xl font-bold leading-tight mb-4">
+              Supplying Global Markets with Fresh & Organic Produce
+            </h3>
+            <p className="text-gray-700 text-lg md:text-xl leading-relaxed mb-6 max-w-2xl">
+              We supply a variety of fresh fruits and vegetables, including bananas, avocados, and green beans, maintaining top freshness and quality for global markets.
+            </p>
             <Button className="text-white" variant="default" asChild>
               <Link href="/contact-us">
                 <i className="uil uil-envelope mr-2" /> Get in Touch
@@ -186,15 +237,100 @@ const FruitExportSection = () => {
   );
 };
 
-const ConstructionSection = () => {
+
+const OilSeedsPulsesSection = () => {
+  const images = [
+  
+    { src: "/seed1.jpg", alt: "Seed Image 1" },
+    { src: "/seed2.jpg", alt: "Seed Image 2" },
+    { src: "/seed3.jpg", alt: "Seed Image 3" },
+    { src: "/seed4.jpg", alt: "Seed Image 4" },
+    { src: "/seed5.jpg", alt: "Seed Image 5" },
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === images.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 2000); 
+
+    return () => clearInterval(interval); 
+  }, [images.length]);
+  const goToPrevious = () => {
+    setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
+  };
+
+  const goToNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+  };
+
+  
   return (
-
-
-
-    <section className="bg-gray-200">
+    <section className="bg-gray-50">
       <div className="container mx-auto py-12 md:py-20 px-4">
         <div className="grid md:grid-cols-12 grid-cols-1 items-center gap-8 md:gap-16">
-          <div className="md:col-span-6 md:order-2">
+          <div className="md:col-span-6">
+            <h6 className="text-primary text-xs md:text-sm font-semibold uppercase tracking-wide mb-2">
+              Exporting Premium Oil Seeds & Pulses Worldwide
+            </h6>
+            <h3 className="text-2xl md:text-4xl font-bold leading-tight mb-4">
+              Supplying Global Markets with High-Quality Oil Seeds & Pulses
+            </h3>
+            <p className="text-gray-700 text-lg md:text-xl leading-relaxed mb-6 max-w-2xl">
+              We export premium oil seeds and pulses such as sesame, soybean, and chickpeas to India, China, and the Middle East, ensuring top-quality standards while supporting Ethiopian agriculture.
+            </p>
+            <Button className="text-white" variant="default" asChild>
+              <Link href="/contact-us">
+                <i className="uil uil-envelope mr-2" /> Get in Touch
+              </Link>
+            </Button>
+          </div>
+
+          <div className="md:col-span-6">
+      <div className="rounded-lg overflow-hidden shadow-l">
+      <div className="rounded-lg overflow-hidden shadow-l">
+      <div className="relative w-full h-64 md:h-96">
+        <Image
+          src={images[currentIndex].src}
+          alt={images[currentIndex].alt}
+          className="object-cover object-center"
+          layout="fill"
+        />
+      </div>
+      <div className="flex justify-between mt-4">
+        <button
+          onClick={goToPrevious}
+          className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-700"
+        >
+          Prev
+        </button>
+        <button
+          onClick={goToNext}
+          className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-700"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+      </div>
+    </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+
+
+const ConstructionSection = () => {
+  return (
+    <section className="bg-white">
+      <div className="container mx-auto py-12 md:py-20 px-4">
+        <div className="grid md:grid-cols-12 grid-cols-1 items-center gap-8 md:gap-16">
+          <div className="md:col-span-6">
             <div className="rounded-lg overflow-hidden shadow-l">
               <div className="relative w-full h-64 md:h-96">
                 <Image
@@ -206,17 +342,17 @@ const ConstructionSection = () => {
               </div>
             </div>
           </div>
-   <div className="md:col-span-6">
-   <h6 className="text-primary text-xs md:text-sm font-semibold uppercase tracking-wide mb-2">
-  Building Ethiopia&apos;s Future
-</h6>
+          <div className="md:col-span-6 md:order-2">
+            <h6 className="text-primary text-xs md:text-sm font-semibold uppercase tracking-wide mb-2">
+              Building Ethiopia&apos;s Future
+            </h6>
 
             <h3 className="text-2xl md:text-4xl font-bold leading-tight mb-4">
               Premium Construction Materials Supply
             </h3>
             <p className="text-gray-700 text-lg md:text-xl leading-relaxed mb-6 max-w-2xl">
-  Hope Business Group has expanded into the construction sector, supplying the market with top-quality building materials.
-</p>
+              Hope Business Group has expanded into the construction sector, supplying the market with top-quality building materials.
+            </p>
 
             <Button className="text-white" variant="default" asChild>
               <Link href="/contact-us">
@@ -224,14 +360,14 @@ const ConstructionSection = () => {
               </Link>
             </Button>
           </div>
-      
         </div>
       </div>
     </section>
   );
 };
 
-export { CoffeeExportSection, FruitExportSection };
+
+export { CoffeeExportSection, OilSeedsPulsesSection, FruitExportSection };
 
 
 

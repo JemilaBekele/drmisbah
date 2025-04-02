@@ -67,7 +67,7 @@ This guide will help to deploy the Next.js application on cPanel with custom
  3. make sure to include  `"type": "commonjs"` on the `package.json` attributes:
 ```json
      {
-         "name": "skyhub",
+         "name": "Hope",
          "type": "commonjs", // make sure to include this
          "version": "0.1.0",
          "private": true,

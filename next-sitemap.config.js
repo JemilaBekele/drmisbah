@@ -1,7 +1,7 @@
 /** @type {import('next-sitemap').IConfig} */
 
 module.exports = {
-  siteUrl: "https://skyhubtechnologies.com",
+  siteUrl: "https://hopebusiness.org",
   changefreq: "daily",
   priority: 0.7,
   sitemapSize: 5000,
@@ -35,9 +35,9 @@ module.exports = {
       },
     ],
     additionalSitemaps: [
-      "https://skyhubtechnologies.com/my-skyhubtechnologies-sitemap-1.xml",
-      "https://skyhubtechnologies.com/my-skyhubtechnologies-sitemap-2.xml",
-      "https://skyhubtechnologies.com/my-skyhubtechnologies-sitemap-3.xml",
+      "https://hopebusiness.org/my-Hope-sitemap-1.xml",
+      "https://hopebusiness.org/my-Hope-sitemap-2.xml",
+      "https://hopebusiness.org/my-Hope-sitemap-3.xml",
     ],
   },
 };
