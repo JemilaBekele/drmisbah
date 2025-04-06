@@ -152,7 +152,7 @@ const CoffeeExportSection = () => {
 
 const FruitExportSection = () => {
   const images = [
-    { src: "/fruits.jpg", alt: "Fresh Fruits & Vegetables" },
+  
     { src: "/fruit1.jpg", alt: "Fruit Image 1" },
     { src: "/fruit2.jpg", alt: "Fruit Image 2" },
     { src: "/fruit3.jpg", alt: "Fruit Image 3" },
