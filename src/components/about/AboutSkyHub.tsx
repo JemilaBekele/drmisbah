@@ -49,19 +49,11 @@ const NUM = storyItems.length;
 const STEP = 360 / NUM;
 
 // ── AUTO-SPIN TIMING ──────────────────────────────────────────────
-// AUTO_SPEED: degrees the wheel rotates per animation frame (~60 frames/sec).
-//   Bigger number = faster spin. Example: 0.05 = slow drift, 0.3 = fast spin.
-//   A full rotation (360°) takes roughly: 360 / AUTO_SPEED / 60 seconds.
-//   At 0.05 that's ~120 seconds per full turn.
 const AUTO_SPEED = 0.05;
-
-// RESUME_DELAY: milliseconds to wait after the user stops dragging/tapping
-//   before auto-spin starts again. 2500 = 2.5 seconds.
 const RESUME_DELAY = 200;
 // ──────────────────────────────────────────────────────────────────
 
 const NODE_FRACTION = 0.19;
-const CENTER_FRACTION = 0.5;
 
 const AboutHope = () => {
   const wheelRef = useRef<HTMLDivElement>(null);
@@ -186,8 +178,14 @@ const AboutHope = () => {
     scheduleResume();
   };
 
+  // Smaller wheels get a slightly larger center circle (relative to wheel)
+  // and a bit more clearance, since short text still needs room to breathe.
+  const isCompact = wheelSize < 400;
+  const CENTER_FRACTION = isCompact ? 0.56 : 0.5;
+  const marginFraction = isCompact ? 0.035 : 0.02;
+
   const nodeSize = wheelSize * NODE_FRACTION;
-  const radius = wheelSize / 2 - nodeSize / 2 - wheelSize * 0.02;
+  const radius = wheelSize / 2 - nodeSize / 2 - wheelSize * marginFraction;
 
   return (
     <section className="relative w-full py-12 sm:py-16 lg:py-24 bg-gradient-to-br from-[#0A2463] via-[#0f3a8a] to-[#028A0F]/80 overflow-hidden">
@@ -226,19 +224,19 @@ const AboutHope = () => {
 
             {/* Center content */}
             <div
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white shadow-2xl flex flex-col items-center justify-center text-center p-4 sm:p-8 z-10"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white shadow-2xl flex flex-col items-center justify-center text-center p-3 sm:p-8 z-10 overflow-hidden"
               style={{
                 width: `${CENTER_FRACTION * 100}%`,
                 height: `${CENTER_FRACTION * 100}%`,
               }}
             >
-              <span className="text-[10px] sm:text-base font-semibold uppercase tracking-wide text-[#028A0F] mb-1.5 sm:mb-3">
+              <span className="text-[9px] sm:text-base font-semibold uppercase tracking-wide text-[#028A0F] mb-1 sm:mb-3">
                 {storyItems[activeIndex].year}
               </span>
-              <h3 className="text-sm sm:text-3xl font-bold text-gray-900 mb-2 sm:mb-4 leading-snug">
+              <h3 className="text-[12px] sm:text-3xl font-bold text-gray-900 mb-1.5 sm:mb-4 leading-tight line-clamp-2">
                 {storyItems[activeIndex].title}
               </h3>
-              <p className="text-[11px] sm:text-lg text-gray-600 leading-snug sm:leading-relaxed max-w-md">
+              <p className="text-[9px] sm:text-lg text-gray-600 leading-tight sm:leading-relaxed max-w-md line-clamp-4 sm:line-clamp-none">
                 {storyItems[activeIndex].description}
               </p>
             </div>
