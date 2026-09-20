@@ -14,13 +14,15 @@ export default function AboutPage() {
       <Head>
         <title>About Us | Dr Misbah Speciality Dental Clinic.</title>
       </Head>
-  
-      <WaveDecoration />
-      <AboutHope/>
-      
-      <WaveDecoration />
 
-<OurTiktokPage/>
+      <main className="pt-[56px] sm:pt-[60px]">
+        <WaveDecoration />
+        <AboutHope />
+
+        <WaveDecoration />
+
+        <OurTiktokPage />
+      </main>
     </>
-  );                 
+  );
 };

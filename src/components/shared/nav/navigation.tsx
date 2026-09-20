@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,21 +16,20 @@ const Navbar = () => {
 
   return (
     <div className="fixed w-full z-50 top-0 left-0">
-      {/* Top info bar */}
-      <div className="bg-[#0A2463] text-white text-xs sm:text-sm">
-        <div className="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center py-2 gap-1 sm:gap-0">
+      {/* Top info bar - slimmer */}
+      <div className="bg-[#0A2463] text-white text-[11px] sm:text-xs">
+        <div className="container mx-auto px-4 flex justify-center items-center py-1">
           <span className="font-semibold tracking-wide">
             Dr Misbah Speciality Dental Clinic
           </span>
-        
         </div>
       </div>
 
-      {/* Main nav */}
-      <nav className="w-full border-b-2 bg-white transition-all duration-300">
-        <div className="container mx-auto px-2 flex justify-between items-center py-3 sm:py-2">
+      {/* Main nav - slimmer */}
+      <nav className="w-full border-b bg-white transition-all duration-300">
+        <div className="container mx-auto px-2 flex justify-between items-center py-1.5 sm:py-1.5">
           <Link href="/">
-            <Image src="/logo.png" alt="dr Logo" width={100} height={60} priority className="w-34 sm:w-[50px]" />
+            <Image src="/logo.png" alt="dr Logo" width={70} height={42} priority className="w-16 sm:w-[40px]" />
           </Link>
 
           {/* Desktop Menu */}

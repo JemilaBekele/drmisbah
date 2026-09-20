@@ -16,12 +16,14 @@ export default function Contact() {
 
       
       </Head>
+      <main className="pt-[56px] sm:pt-[60px]">
 
       <WaveDecoration />
       <div className="bg-primary text-white">
       <ContactForm />
       </div>
-      <OurMap />
+      <OurMap />     
+       </main>
     </>
   );
 }
