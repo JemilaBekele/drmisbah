@@ -1,23 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
   images: {
-  
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "mcqmate.com",
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "dummyimage.com",
-        port: "",
-        pathname: "/**",
+        hostname: "images.unsplash.com",
       },
     ],
   },
 };
 
-module.exports = nextConfig;
+module.exports = nextConfig; // in next.config.mjs use: export default nextConfig;

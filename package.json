@@ -1,5 +1,5 @@
 {
-  "name": "hope",
+  "name": "drmisbah",
   "version": "0.1.0",
   "private": true,
   "type": "commonjs",
@@ -62,7 +62,7 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.15",
-    "@types/aos": "^3.0.7",
+    "@types/aos": "^3.0.8",
     "@types/node": "^20",
     "@types/nodemailer": "^6.4.14",
     "@types/react": "^18",

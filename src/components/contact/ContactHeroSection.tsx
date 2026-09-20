@@ -1,55 +1,55 @@
+"use client";
 import Link from "next/link";
 import Head from "next/head";
+
+const CONTACT_IMAGE =
+  "https://images.unsplash.com/photo-1643660527098-559f89e45a92?fm=jpg&q=80&w=2000&auto=format&fit=crop";
+
 const ContactHeroSection = () => {
-    return(
-          <>
-     <Head>
-        <link rel="preload" href="/c.jpg" as="image" />
+  return (
+    <>
+      <Head>
+        <link rel="preload" href={CONTACT_IMAGE} as="image" />
       </Head>
       <section
-      className="h-[90vh] relative table w-full py-36 lg:py-44 bg-no-repeat bg-center bg-cover"
-      style={{ backgroundImage: `url(c.jpg)` }}
-    >
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-black opacity-70"></div>
-      <div className="container px-0 relative z-10">
-      <div className="flex flex-col bg-white/60 p-10 max-w-2xl rounded-lg shadow-2xl backdrop-blur-md">
-          <p className="text-xl font-semibold text-primary mb-2">Contact Us</p>
-          <h2 className="text-5xl font-bold capitalize mb-4">
-            Get in Touch with
-            <span className="text-primary font-bold"> Us</span>
-          </h2>
-          <p className="text-gray-700 leading-relaxed mb-6">
-            We&apos;re here to help you with any questions, inquiries, or support you need. 
-            Reach out to us and experience our commitment to providing top-notch 
-            customer service and innovative solutions tailored to your needs.
-          </p>
+        className="relative h-[45vh] sm:h-[55vh] min-h-[380px] w-full flex items-center bg-no-repeat bg-center bg-cover"
+        style={{ backgroundImage: `url(${CONTACT_IMAGE})` }}
+      >
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0A2463]/90 via-[#0A2463]/70 to-[#0A2463]/40"></div>
+
+        <div className="container relative z-10 px-6 lg:px-8">
+          <div className="flex flex-col bg-white/90 backdrop-blur-md p-6 sm:p-8 max-w-xl rounded-xl shadow-2xl">
+            <p className="text-sm sm:text-base font-semibold text-[#028A0F] uppercase tracking-wide mb-2">
+              Contact Us
+            </p>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 capitalize mb-3 leading-tight">
+              Get in Touch with
+              <span className="text-[#0A2463]"> Our Clinic</span>
+            </h2>
+            <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+              Have a question or want to book a visit? Dr Misbah Speciality
+              Dental Clinic is here to help — reach out and our team will
+              respond promptly.
+            </p>
+          </div>
         </div>
-      </div>
 
-      <div className="absolute bottom-5 left-0 right-0 text-center z-10">
-        <ul className="inline-block text-white text-sm font-semibold tracking-wide">
-          <li className="inline-block uppercase text-white/70 hover:text-white transition duration-300">
-            <Link href="/contact-us">Hope Business Group</Link>
-          </li>
-          <li className="inline-block mx-2 text-white/50">
-            <i className="uil uil-angle-right-b"></i>
-          </li>
-          <li className="inline-block uppercase text-white">
-            Contact Us
-          </li>
-        </ul>
-      </div>
-    </section></>
-      );
+        {/* Breadcrumbs */}
+        <div className="absolute bottom-4 left-0 right-0 text-center z-10">
+          <ul className="inline-flex items-center gap-2 text-white text-xs sm:text-sm font-semibold tracking-wide bg-black/20 px-4 py-1.5 rounded-full backdrop-blur-sm">
+            <li className="uppercase text-white/70 hover:text-white transition duration-300">
+              <Link href="/contact-us">Dr Misbah Speciality Dental Clinic</Link>
+            </li>
+            <li className="text-white/50">
+              <i className="uil uil-angle-right-b"></i>
+            </li>
+            <li className="uppercase text-[#FFD700]">Contact Us</li>
+          </ul>
+        </div>
+      </section>
+    </>
+  );
 };
+
 export default ContactHeroSection;
-
-
-
-
-
-
-
-
-
-

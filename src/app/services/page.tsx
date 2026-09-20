@@ -16,7 +16,7 @@ const ServicesPage = () => {
         <title>Our Services </title>
         <meta
           name="description"
-          content="Hope Business Group."
+          content="Dr Misbah Speciality Dental Clinic."
         />
 
       

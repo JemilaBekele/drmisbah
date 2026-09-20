@@ -11,12 +11,12 @@ export default function Contact() {
         <title>Contact Us </title>
         <meta
           name="description"
-          content="Hope Business Group."
+          content="Dr Misbah Speciality Dental Clinic."
         />
 
       
       </Head>
-      <ContactHeroSection />
+
       <WaveDecoration />
       <div className="bg-primary text-white">
       <ContactForm />

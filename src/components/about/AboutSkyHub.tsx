@@ -1,108 +1,332 @@
 "use client";
-import Aos from "aos";
-import Image from "next/image";
-import { useEffect } from "react";
-import { GiStarsStack } from "react-icons/gi";
-import "aos/dist/aos.css";
+import { useEffect, useRef, useState, useCallback } from "react";
+import {
+  FaHospitalAlt,
+  FaUserMd,
+  FaGraduationCap,
+  FaTrophy,
+} from "react-icons/fa";
+
+type StoryItem = {
+  icon: React.ReactNode;
+  year: string;
+  title: string;
+  description: string;
+};
+
+const storyItems: StoryItem[] = [
+  {
+    icon: <FaHospitalAlt />,
+    year: "The Beginning",
+    title: "Dr Misbah Founds the Clinic",
+    description:
+      "Dr Misbah founded the clinic with a vision to bring complete, trustworthy dental care to the community, starting from the ground up with a passion for patient wellbeing.",
+  },
+  {
+    icon: <FaUserMd />,
+    year: "Growth",
+    title: "A Speciality Dental Clinic",
+    description:
+      "Under Dr Misbah's leadership, the clinic grew into a full speciality dental clinic, offering advanced treatments across multiple areas of dentistry under one roof.",
+  },
+  {
+    icon: <FaGraduationCap />,
+    year: "Culture",
+    title: "Education Comes First",
+    description:
+      "Education is a core part of the clinic's culture. Dr Misbah continuously encourages and supports the team to further their studies and upgrade their professional status.",
+  },
+  {
+    icon: <FaTrophy />,
+    year: "Recognition",
+    title: "Ranked #1 in Ethiopia",
+    description:
+      "Dr Misbah's dedication earned national recognition, winning an Ethiopian health award and ranking first place among speciality clinics in the country.",
+  },
+];
+
+const NUM = storyItems.length;
+const STEP = 360 / NUM;
+
+// ── AUTO-SPIN TIMING ──────────────────────────────────────────────
+// AUTO_SPEED: degrees the wheel rotates per animation frame (~60 frames/sec).
+//   Bigger number = faster spin. Example: 0.05 = slow drift, 0.3 = fast spin.
+//   A full rotation (360°) takes roughly: 360 / AUTO_SPEED / 60 seconds.
+//   At 0.05 that's ~120 seconds per full turn.
+const AUTO_SPEED = 0.05;
+
+// RESUME_DELAY: milliseconds to wait after the user stops dragging/tapping
+//   before auto-spin starts again. 2500 = 2.5 seconds.
+const RESUME_DELAY = 200;
+// ──────────────────────────────────────────────────────────────────
+
+const NODE_FRACTION = 0.19;
+const CENTER_FRACTION = 0.5;
 
 const AboutHope = () => {
+  const wheelRef = useRef<HTMLDivElement>(null);
+  const [wheelSize, setWheelSize] = useState(700);
+  const [rotation, setRotation] = useState(90);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const dragging = useRef(false);
+  const lastAngle = useRef(0);
+  const rotationRef = useRef(90);
+  const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const autoSpin = useRef(true);
+  const rafId = useRef<number | null>(null);
+
   useEffect(() => {
-    Aos.init({ duration: 1000, once: true }); // Initialize AOS with smoother animations
+    const measure = () => {
+      if (wheelRef.current) {
+        setWheelSize(wheelRef.current.offsetWidth);
+      }
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
   }, []);
 
+  useEffect(() => {
+    const tick = () => {
+      if (autoSpin.current && !dragging.current) {
+        rotationRef.current += AUTO_SPEED;
+        setRotation(rotationRef.current);
+      }
+      rafId.current = requestAnimationFrame(tick);
+    };
+    rafId.current = requestAnimationFrame(tick);
+    return () => {
+      if (rafId.current) cancelAnimationFrame(rafId.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    const normalized = ((rotation % 360) + 360) % 360;
+    let closestIdx = 0;
+    let closestDiff = Infinity;
+    for (let i = 0; i < NUM; i++) {
+      const itemAngle = (((i * STEP + normalized - 90) % 360) + 360) % 360;
+      const diff = Math.min(itemAngle, 360 - itemAngle);
+      if (diff < closestDiff) {
+        closestDiff = diff;
+        closestIdx = i;
+      }
+    }
+    if (closestIdx !== activeIndex) setActiveIndex(closestIdx);
+  }, [rotation, activeIndex]);
+
+  const pauseAutoSpin = () => {
+    autoSpin.current = false;
+    if (resumeTimer.current) clearTimeout(resumeTimer.current);
+  };
+
+  const scheduleResume = () => {
+    if (resumeTimer.current) clearTimeout(resumeTimer.current);
+    resumeTimer.current = setTimeout(() => {
+      autoSpin.current = true;
+    }, RESUME_DELAY);
+  };
+
+  const angleFromCenter = useCallback((clientX: number, clientY: number) => {
+    const el = wheelRef.current;
+    if (!el) return 0;
+    const rect = el.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    return (Math.atan2(clientY - cy, clientX - cx) * 180) / Math.PI;
+  }, []);
+
+  const snapToNearest = useCallback((deg: number) => {
+    const normalized = ((deg % 360) + 360) % 360;
+    let closestIdx = 0;
+    let closestDiff = Infinity;
+    for (let i = 0; i < NUM; i++) {
+      const itemAngle = (((i * STEP + normalized - 90) % 360) + 360) % 360;
+      const diff = Math.min(itemAngle, 360 - itemAngle);
+      if (diff < closestDiff) {
+        closestDiff = diff;
+        closestIdx = i;
+      }
+    }
+    const snappedRotation = -closestIdx * STEP + 90;
+    rotationRef.current = snappedRotation;
+    setRotation(snappedRotation);
+    setActiveIndex(closestIdx);
+  }, []);
+
+  const onPointerDown = (e: React.PointerEvent) => {
+    dragging.current = true;
+    pauseAutoSpin();
+    lastAngle.current = angleFromCenter(e.clientX, e.clientY);
+    (e.target as Element).setPointerCapture?.(e.pointerId);
+  };
+
+  const onPointerMove = (e: React.PointerEvent) => {
+    if (!dragging.current) return;
+    const currentAngle = angleFromCenter(e.clientX, e.clientY);
+    const delta = currentAngle - lastAngle.current;
+    lastAngle.current = currentAngle;
+    rotationRef.current += delta;
+    setRotation(rotationRef.current);
+  };
+
+  const onPointerUp = () => {
+    if (!dragging.current) return;
+    dragging.current = false;
+    snapToNearest(rotationRef.current);
+    scheduleResume();
+  };
+
+  const goToIndex = (idx: number) => {
+    pauseAutoSpin();
+    const target = -idx * STEP + 90;
+    rotationRef.current = target;
+    setRotation(target);
+    setActiveIndex(idx);
+    scheduleResume();
+  };
+
+  const nodeSize = wheelSize * NODE_FRACTION;
+  const radius = wheelSize / 2 - nodeSize / 2 - wheelSize * 0.02;
+
   return (
-    <section className="relative min-h-screen w-full py-12 lg:py-24 bg-no-repeat bg-center bg-cover overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-white to-transparent opacity-90"></div>
-      <div className="container relative z-10 px-4 lg:px-0 mx-auto">
-        <div className="text-center mb-8 lg:mb-12">
+    <section className="relative w-full py-12 sm:py-16 lg:py-24 bg-gradient-to-br from-[#0A2463] via-[#0f3a8a] to-[#028A0F]/80 overflow-hidden">
+      <div className="absolute -top-20 -left-20 w-72 h-72 bg-[#028A0F]/30 rounded-full blur-3xl"></div>
+      <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-[#FFD700]/20 rounded-full blur-3xl"></div>
+
+      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Heading */}
+        <div className="text-center mb-10 sm:mb-14 lg:mb-20">
+          <p className="text-[#7CFFB2] font-semibold uppercase tracking-widest text-sm sm:text-base lg:text-lg mb-2 sm:mb-3">
+            Our Story
+          </p>
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-5 px-2">
+            The Journey of Dr Misbah Speciality Dental Clinic
+          </h2>
+          <p className="text-white/85 max-w-3xl mx-auto text-sm sm:text-lg leading-relaxed px-2">
+            Watch the wheel spin through our story on its own, or drag it
+            yourself — from a single vision to a nationally recognised
+            speciality clinic.
+          </p>
+        </div>
+
+        {/* Circular story wheel */}
+        <div className="flex justify-center px-2">
           <div
-            className="flex flex-col items-center"
-            data-aos="fade-up"
-            data-aos-duration="1000"
+            ref={wheelRef}
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={onPointerUp}
+            onPointerLeave={onPointerUp}
+            className="relative w-[92vw] h-[92vw] max-w-[340px] max-h-[340px] sm:w-[500px] sm:h-[500px] sm:max-w-none sm:max-h-none md:w-[620px] md:h-[620px] lg:w-[760px] lg:h-[760px] rounded-full touch-none select-none cursor-grab active:cursor-grabbing"
           >
-            <GiStarsStack className="w-8 h-8 lg:w-10 lg:h-10 text-primary mb-2 lg:mb-4" />
-            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold title-font text-neutral-900">
-              OUR STORY AND VALUES
-            </h1>
-            <div className="flex my-4 lg:my-6 justify-center">
-              <div className="w-12 lg:w-16 h-[2px] rounded-full bg-primary inline-flex"></div>
+            {/* Outer rings */}
+            <div className="absolute inset-0 rounded-full border-2 border-dashed border-white/30"></div>
+            <div className="absolute inset-4 sm:inset-6 rounded-full border border-white/15"></div>
+
+            {/* Center content */}
+            <div
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white shadow-2xl flex flex-col items-center justify-center text-center p-4 sm:p-8 z-10"
+              style={{
+                width: `${CENTER_FRACTION * 100}%`,
+                height: `${CENTER_FRACTION * 100}%`,
+              }}
+            >
+              <span className="text-[10px] sm:text-base font-semibold uppercase tracking-wide text-[#028A0F] mb-1.5 sm:mb-3">
+                {storyItems[activeIndex].year}
+              </span>
+              <h3 className="text-sm sm:text-3xl font-bold text-gray-900 mb-2 sm:mb-4 leading-snug">
+                {storyItems[activeIndex].title}
+              </h3>
+              <p className="text-[11px] sm:text-lg text-gray-600 leading-snug sm:leading-relaxed max-w-md">
+                {storyItems[activeIndex].description}
+              </p>
             </div>
-            <p className="text-sm lg:text-base leading-relaxed lg:xl:w-2/4 lg:w-3/4 mx-auto text-neutral-600">
-              At Hope Pharmaceuticals and Medical Equipment PLC, we are driven by a commitment to excellence, innovation, and sustainability. Our journey began with a vision to transform the healthcare and construction industries, and we have since expanded our impact to include eco-friendly transportation and premium agricultural exports.
+
+            {/* Orbiting nodes */}
+            {storyItems.map((item, idx) => {
+              const angleDeg = idx * STEP + rotation;
+              const angleRad = (angleDeg * Math.PI) / 180;
+              const x = radius * Math.cos(angleRad);
+              const y = radius * Math.sin(angleRad);
+              const isActive = idx === activeIndex;
+
+              return (
+                <button
+                  key={item.title}
+                  type="button"
+                  onClick={() => goToIndex(idx)}
+                  style={{
+                    left: `calc(50% + ${x}px)`,
+                    top: `calc(50% + ${y}px)`,
+                    width: `${NODE_FRACTION * 100}%`,
+                    height: `${NODE_FRACTION * 100}%`,
+                  }}
+                  className={`absolute -translate-x-1/2 -translate-y-1/2 rounded-full flex items-center justify-center text-lg sm:text-3xl lg:text-4xl transition-all duration-300 shadow-lg z-20 ${
+                    isActive
+                      ? "bg-[#028A0F] text-white scale-110 ring-4 ring-[#028A0F]/30"
+                      : "bg-white text-[#0A2463] hover:scale-105"
+                  }`}
+                  aria-label={item.title}
+                >
+                  {item.icon}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Drag hint + dots */}
+        <div className="flex flex-col items-center mt-8 sm:mt-10 gap-3 sm:gap-4 px-4">
+          <p className="text-xs sm:text-base text-white/70 text-center">
+            ↻ Spinning on its own — drag the wheel or tap an icon anytime
+          </p>
+          <div className="flex gap-2 sm:gap-3">
+            {storyItems.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => goToIndex(idx)}
+                className={`h-2.5 sm:h-3 rounded-full transition-all ${
+                  idx === activeIndex ? "bg-[#FFD700] w-6 sm:w-8" : "bg-white/40 w-2.5 sm:w-3"
+                }`}
+                aria-label={`Go to story ${idx + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Mission / Vision / Values */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 mt-16 sm:mt-24">
+          <div className="bg-white/95 backdrop-blur rounded-2xl shadow-md p-6 sm:p-7 text-center">
+            <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">Our Mission</h3>
+            <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+              To provide complete, compassionate dental care while
+              continuously investing in the education and growth of our
+              team, so every patient receives world-class treatment.
             </p>
           </div>
-        </div>
-      </div>
 
-      <div className="container px-4 lg:px-5 pb-8 lg:pb-12 mx-auto flex flex-wrap">
-        <div
-          className="flex flex-col h-fit flex-wrap w-full lg:w-1/3 lg:text-right text-center lg:pr-5 mb-8 lg:mb-0"
-          data-aos="fade-right"
-          data-aos-duration="1000"
-        >
-          <h2 className="text-xl sm:text-2xl font-bold title-font text-neutral-900">
-            Our Journey
-          </h2>
-          <div className="flex mb-4 lg:mb-5 justify-center lg:justify-end">
-            <div className="w-12 lg:w-16 h-[1px] mt-2 lg:mt-3 rounded-full bg-primary inline-flex"></div>
+          <div className="bg-white/95 backdrop-blur rounded-2xl shadow-md p-6 sm:p-7 text-center">
+            <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">Our Vision</h3>
+            <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+              To remain Ethiopia&apos;s leading speciality dental clinic,
+              known equally for clinical excellence and for the growth of
+              the people who deliver it.
+            </p>
           </div>
-          <p className="text-sm lg:text-base flex flex-col mb-8 lg:mb-10 lg:items-start items-center text-neutral-600">
-            Founded in 2019, Hope Pharmaceuticals and Medical Equipment PLC was established to address critical gaps in the pharmaceutical and medical equipment markets. Over the years, we have grown into a diversified company with a focus on sustainability and innovation.
-          </p>
 
-          <h2 className="text-xl sm:text-2xl font-bold title-font text-neutral-900">
-            Our Mission
-          </h2>
-          <div className="flex mb-4 lg:mb-5 justify-center lg:justify-end">
-            <div className="w-12 lg:w-16 h-[1px] mt-2 lg:mt-3 rounded-full bg-primary inline-flex"></div>
+          <div className="bg-white/95 backdrop-blur rounded-2xl shadow-md p-6 sm:p-7 text-center">
+            <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">
+              Our Core Values
+            </h3>
+            <ul className="text-sm sm:text-base text-gray-600 leading-relaxed space-y-1.5 list-none">
+              <li>Excellence in Care</li>
+              <li>Ethics and Integrity</li>
+              <li>Continuous Education</li>
+              <li>Trust and Efficiency</li>
+              <li>Commitment to Quality</li>
+            </ul>
           </div>
-          <p className="text-sm lg:text-base flex flex-col mb-8 lg:mb-10 lg:items-start items-center text-neutral-600">
-          To advance health, sustainability, and economic development through cutting-edge pharmaceuticals, construction materials, and agricultural exports, creating value for customers and partners worldwide.          </p>
-        </div>
-
-        <div
-          className="lg:w-1/3 w-full mb-8 lg:mb-0 rounded-lg overflow-hidden"
-          data-aos="zoom-in"
-          data-aos-duration="1000"
-        >
-          <Image
-            alt="Hope Pharmaceuticals"
-            className="object-cover object-center h-auto w-full rounded-lg"
-            src="/mm.png"
-            width={800}
-            height={450}
-            quality={100}
-            layout="responsive"
-          />
-        </div>
-
-        <div
-          className="flex flex-col h-fit flex-wrap w-full lg:w-1/3 lg:text-left text-center lg:pl-5"
-          data-aos="fade-left"
-          data-aos-duration="1000"
-        >
-          <h2 className="text-xl sm:text-2xl font-bold title-font text-neutral-900">
-            Our Vision
-          </h2>
-          <div className="flex mb-4 lg:mb-5 justify-center lg:justify-start">
-            <div className="w-12 lg:w-16 h-[1px] mt-2 lg:mt-3 rounded-full bg-primary inline-flex"></div>
-          </div>
-          <p className="text-sm lg:text-base flex flex-col mb-8 lg:mb-10 lg:items-start items-center text-neutral-600">
-          A world where health, sustainability, and progress converge to create brighter futures for all          </p>
-
-          <h2 className="text-xl sm:text-2xl font-bold title-font text-neutral-900">
-            Our Core Values
-          </h2>
-          <div className="flex mb-4 lg:mb-5 justify-center lg:justify-start">
-            <div className="w-12 lg:w-16 h-[1px] mt-2 lg:mt-3 rounded-full bg-primary inline-flex"></div>
-          </div>
-          <ul className="text-sm lg:text-base flex flex-col mb-8 lg:mb-10 lg:items-start items-center text-neutral-600 list-none">
-            <li>Excellence</li>
-            <li>Ethics and Integrity</li>
-            <li>Innovation and Problem-Solving</li>
-            <li>Trust and Efficiency</li>
-            <li>Commitment to Quality and Sustainability</li>
-          </ul>
         </div>
       </div>
     </section>
